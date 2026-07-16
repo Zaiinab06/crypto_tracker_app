@@ -1,12 +1,9 @@
-import 'package:crypto_tracker_app/blocs/crypto_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'blocs/crypto_event.dart';
-import 'cubits/favorites_cubit.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'screens/crypto_tracker_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -26,15 +23,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
 
-      home: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => CryptoBloc()..add(FetchCryptoPrices()),
-          ),
-          BlocProvider(create: (context) => FavoritesCubit()),
-        ],
-        child: const CryptoTrackerScreen(),
-      ),
+      home: const CryptoTrackerScreen(),
     );
   }
 }
